@@ -154,7 +154,7 @@ public class BluetoothSettings extends PreferenceActivity
                     (CheckBoxPreference) findPreference(KEY_BT_DISCOVERABLE),
                     (ListPreference) findPreference(KEY_BT_DISCOVERABLE_TIMEOUT));
 
-            mFastConnectPreference = (CheckBoxPreference) findPreference(KEY_BT_FAST_CONNECT);
+	    mFastConnectPreference = (CheckBoxPreference) findPreference(KEY_BT_FAST_CONNECT);
 
             mNamePreference = (BluetoothNamePreference) findPreference(KEY_BT_NAME);
 
@@ -180,7 +180,8 @@ public class BluetoothSettings extends PreferenceActivity
             mEnabler.resume();
             mDiscoverableEnabler.resume();
             mNamePreference.resume();
-            mFastConnectPreference.setChecked(Settings.System.getInt(getContentResolver(), Settings.System.BLUETOOTH_FAST_CONNECT, 0) == 1);
+	    mFastConnectPreference.setChecked(Settings.System.getInt(getContentResolver(),
+		Settings.System.BLUETOOTH_FAST_CONNECT, 0) == 1);
         }
 
         mLocalManager.registerCallback(this);
@@ -235,8 +236,10 @@ public class BluetoothSettings extends PreferenceActivity
             return true;
         }
 
-        if (preference == mFastConnectPreference) {
-            Settings.System.putInt(getContentResolver(), Settings.System.BLUETOOTH_FAST_CONNECT, mFastConnectPreference.isChecked() ? 1 : 0);
+	if (preference == mFastConnectPreference) {
+            Settings.System.putInt(getContentResolver(),
+		Settings.System.BLUETOOTH_FAST_CONNECT,
+		mFastConnectPreference.isChecked() ? 1 : 0);
             return true;
         }
 

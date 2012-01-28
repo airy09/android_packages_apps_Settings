@@ -189,7 +189,4 @@
     <item>Szürke</item>
     <item>Átlátszó</item>
   </string-array>
-    <string-array name="location_entries_gps_source">
-        <item>Beépített GPS</item>
-    </string-array>
 </resources>
