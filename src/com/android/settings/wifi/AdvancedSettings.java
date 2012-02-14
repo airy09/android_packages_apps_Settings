@@ -62,6 +62,10 @@ public class AdvancedSettings extends PreferenceActivity
     //Tracks ro.debuggable (1 on userdebug builds)
     private static int DEBUGGABLE;
 
+    private static final String WIFI_SLEEP_POLICY_DEFAULT_PROP = "ro.wifi.sleep_policy_default";
+    private int mWifiSleepPolicyDefault = SystemProperties.getInt(WIFI_SLEEP_POLICY_DEFAULT_PROP,
+            Settings.System.WIFI_SLEEP_POLICY_DEFAULT);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +155,7 @@ public class AdvancedSettings extends PreferenceActivity
         ListPreference pref = (ListPreference) findPreference(KEY_SLEEP_POLICY);
         pref.setOnPreferenceChangeListener(this);
         int value = Settings.System.getInt(getContentResolver(),
-                Settings.System.WIFI_SLEEP_POLICY,Settings. System.WIFI_SLEEP_POLICY_DEFAULT);
+                Settings.System.WIFI_SLEEP_POLICY, mWifiSleepPolicyDefault);
         pref.setValue(String.valueOf(value));
     }
 
