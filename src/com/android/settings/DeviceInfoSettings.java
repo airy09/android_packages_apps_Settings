@@ -364,7 +364,7 @@ public class DeviceInfoSettings extends PreferenceActivity {
          String[] memCached = cached[1].trim().split(" ");
 
          avail = Long.parseLong(memFree[0]) + Long.parseLong(memCached[0]);
-         avail = (avail - 32768) / 1024;
+         avail = (avail + 65536) / 1024;
       }
       catch(Exception e) {
          e.printStackTrace();
@@ -500,7 +500,7 @@ public class DeviceInfoSettings extends PreferenceActivity {
          String[] fullsAvail = fullsavail[1].trim().split(" ");
 
          fullavail = Long.parseLong(fullsAvail[0]) - Long.parseLong(swapCached[0]) + Long.parseLong(memFrees[0]) + Long.parseLong(memCacheds[0]);
-         fullavail = fullavail / 1024;
+         fullavail = (fullavail + 65536)/ 1024;
       }
       catch(Exception e) {
          e.printStackTrace();
