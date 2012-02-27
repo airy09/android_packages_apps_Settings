@@ -75,6 +75,8 @@ public class DeviceInfoSettings extends PreferenceActivity {
 
         setStringSummary("device_cpu", getCPUInfo());
         setStringSummary("device_memory", getMemAvail().toString()+" MB / "+getMemTotal().toString()+" MB");
+        setStringSummary("device_swap_memory", getSwapMemAvail().toString()+" MB / "+getSwapMemTotal().toString()+" MB");
+        setStringSummary("device_total_memory", getTotalMemAvail().toString()+" MB / "+getTotalMemTotal().toString()+" MB");
         setStringSummary("firmware_version", Build.VERSION.RELEASE);
         findPreference("firmware_version").setEnabled(true);
         setValueSummary("baseband_version", "gsm.version.baseband");
@@ -213,6 +215,128 @@ public class DeviceInfoSettings extends PreferenceActivity {
       return total;
     }
 
+    private Long getSwapMemTotal() {
+      Long swaptotal = null;
+      BufferedReader reader = null;
+
+      try {
+         // Grab a reader to /proc/meminfo
+         reader = new BufferedReader(new InputStreamReader(new FileInputStream("/proc/meminfo")), 1000);
+
+         // This is memTotal which we don't need
+         String line = reader.readLine();
+         // This is memFree which we don't need
+         line = reader.readLine();
+         // This is buffer which we don't need
+         line = reader.readLine();
+         // This is cached which we don't need
+         line = reader.readLine();
+         // This is swapCached which we don't need
+         line = reader.readLine();
+         // This is active which we don't need
+         line = reader.readLine();
+         // This is inactive which we don't need
+         line = reader.readLine();
+         // This is active(anon) which we don't need
+         line = reader.readLine();
+         // This is inactive(anon) which we don't need
+         line = reader.readLine();
+         // This is active(file) which we don't need
+         line = reader.readLine();
+         // This is inactive(file) which we don't need
+         line = reader.readLine();
+         // This is unevictable which we don't need
+         line = reader.readLine();
+         // This is mlocked which we don't need
+         line = reader.readLine();
+         // This is swapTotal which we need
+         line = reader.readLine();
+         String[] swaps = line.split(":");
+         // We have to remove the kb on the end
+         String[] swapTotal = swaps[1].trim().split(" ");
+
+         // Convert kb into mb
+         swaptotal = Long.parseLong(swapTotal[0]);
+         swaptotal = swaptotal / 1024;
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+         // We don't want to return null so default to 0
+         swaptotal = Long.parseLong("0");
+      }
+      finally {
+         // Make sure the reader is closed no matter what
+         try { reader.close(); }
+         catch(Exception e) {}
+         reader = null;
+      }
+
+      return swaptotal;
+    }
+
+    private Long getTotalMemTotal() {
+      Long fulltotal = null;
+      BufferedReader reader = null;
+
+      try {
+         // Grab a reader to /proc/meminfo
+         reader = new BufferedReader(new InputStreamReader(new FileInputStream("/proc/meminfo")), 1000);
+
+         // This is memTotal which we need
+         String line = reader.readLine();
+         String[] infos = line.split(":");
+         // We have to remove the kb on the end
+         String[] memTotals = infos[1].trim().split(" ");
+
+         // This is memFree which we don't need
+         line = reader.readLine();
+         // This is buffer which we don't need
+         line = reader.readLine();
+         // This is cached which we don't need
+         line = reader.readLine();
+         // This is swapCached which we don't need
+         line = reader.readLine();
+         // This is active which we don't need
+         line = reader.readLine();
+         // This is inactive which we don't need
+         line = reader.readLine();
+         // This is active(anon) which we don't need
+         line = reader.readLine();
+         // This is inactive(anon) which we don't need
+         line = reader.readLine();
+         // This is active(file) which we don't need
+         line = reader.readLine();
+         // This is inactive(file) which we don't need
+         line = reader.readLine();
+         // This is unevictable which we don't need
+         line = reader.readLine();
+         // This is mlocked which we don't need
+         line = reader.readLine();
+         // This is swapTotal which we need
+         line = reader.readLine();
+         String[] fulls = line.split(":");
+         // We have to remove the kb on the end
+         String[] fullTotal = fulls[1].trim().split(" ");
+
+         // Convert kb into mb
+         fulltotal = Long.parseLong(fullTotal[0]) + + Long.parseLong(memTotals[0]);
+         fulltotal = fulltotal / 1024;
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+         // We don't want to return null so default to 0
+         fulltotal = Long.parseLong("0");
+      }
+      finally {
+         // Make sure the reader is closed no matter what
+         try { reader.close(); }
+         catch(Exception e) {}
+         reader = null;
+      }
+
+      return fulltotal;
+    }
+
     private Long getMemAvail() {
       Long avail = null;
       BufferedReader reader = null;
@@ -240,7 +364,7 @@ public class DeviceInfoSettings extends PreferenceActivity {
          String[] memCached = cached[1].trim().split(" ");
 
          avail = Long.parseLong(memFree[0]) + Long.parseLong(memCached[0]);
-         avail = avail / 1024;
+         avail = (avail - 32768) / 1024;
       }
       catch(Exception e) {
          e.printStackTrace();
@@ -255,6 +379,142 @@ public class DeviceInfoSettings extends PreferenceActivity {
       }
 
       return avail;
+    }
+
+   private Long getSwapMemAvail() {
+      Long swapavail = null;
+      BufferedReader reader = null;
+
+      try {
+         // Grab a reader to /proc/meminfo
+         reader = new BufferedReader(new InputStreamReader(new FileInputStream("/proc/meminfo")), 1000);
+
+         // This is memTotal which we don't need
+         String line = reader.readLine();
+         // This is memFree which we don't need
+         line = reader.readLine();
+         // This is buffer which we don't need
+         line = reader.readLine();
+         // This is cached which we don't need
+         line = reader.readLine();
+         // This is swapCached which we need
+         line = reader.readLine();
+         String[] swapcached = line.split(":");
+         // Have to remove the kb on the end
+         String[] swapCached = swapcached[1].trim().split(" ");
+
+         // This is active which we don't need
+         line = reader.readLine();
+         // This is inactive which we don't need
+         line = reader.readLine();
+         // This is active(anon) which we don't need
+         line = reader.readLine();
+         // This is inactive(anon) which we don't need
+         line = reader.readLine();
+         // This is active(file) which we don't need
+         line = reader.readLine();
+         // This is inactive(file) which we don't need
+         line = reader.readLine();
+         // This is unevictable which we don't need
+         line = reader.readLine();
+         // This is mlocked which we don't need
+         line = reader.readLine();
+         // This is swapTotal which we don't need
+         line = reader.readLine();
+         // This is swapFree which we need
+         line = reader.readLine();
+         String[] swapsavail = line.split(":");
+         // Have to remove the kb on the end
+         String[] swapsAvail = swapsavail[1].trim().split(" ");
+
+         swapavail = Long.parseLong(swapsAvail[0]) - Long.parseLong(swapCached[0]);
+         swapavail = swapavail / 1024;
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+         // We don't want to return null so default to 0
+         swapavail = Long.parseLong("0");
+      }
+      finally {
+         // Make sure the reader is closed no matter what
+         try { reader.close(); }
+         catch(Exception e) {}
+         reader = null;
+      }
+
+      return swapavail;
+    }
+
+   private Long getTotalMemAvail() {
+      Long fullavail = null;
+      BufferedReader reader = null;
+
+      try {
+         // Grab a reader to /proc/meminfo
+         reader = new BufferedReader(new InputStreamReader(new FileInputStream("/proc/meminfo")), 1000);
+
+         // This is memTotal which we don't need
+         String line = reader.readLine();
+         // This is memFree which we need
+         line = reader.readLine();
+         String[] frees = line.split(":");
+         // Have to remove the kb on the end
+         String [] memFrees = frees[1].trim().split(" ");
+
+         // This is buffer which we don't need
+         line = reader.readLine();
+         // This is cached which we need
+         line = reader.readLine();
+         String[] cacheds = line.split(":");
+         // Have to remove the kb on the end
+         String[] memCacheds = cacheds[1].trim().split(" ");
+
+         // This is swapCached which we need
+         line = reader.readLine();
+         String[] swapcached = line.split(":");
+         // Have to remove the kb on the end
+         String[] swapCached = swapcached[1].trim().split(" ");
+
+         // This is active which we don't need
+         line = reader.readLine();
+         // This is inactive which we don't need
+         line = reader.readLine();
+         // This is active(anon) which we don't need
+         line = reader.readLine();
+         // This is inactive(anon) which we don't need
+         line = reader.readLine();
+         // This is active(file) which we don't need
+         line = reader.readLine();
+         // This is inactive(file) which we don't need
+         line = reader.readLine();
+         // This is unevictable which we don't need
+         line = reader.readLine();
+         // This is mlocked which we don't need
+         line = reader.readLine();
+         // This is swapTotal which we don't need
+         line = reader.readLine();
+         // This is swapFree which we need
+         line = reader.readLine();
+         String[] fullsavail = line.split(":");
+         // Have to remove the kb on the end
+         String[] fullsAvail = fullsavail[1].trim().split(" ");
+
+         fullavail = Long.parseLong(fullsAvail[0]) - Long.parseLong(swapCached[0]) + Long.parseLong(memFrees[0]) + Long.parseLong(memCacheds[0]);
+         fullavail = fullavail / 1024;
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+         // We don't want to return null so default to 0
+         fullavail = Long.parseLong("0");
+      }
+      finally {
+         // Make sure the reader is closed no matter what
+         try { reader.close(); }
+         catch(Exception e) {}
+         reader = null;
+      }
+
+      return fullavail;
     }
 
    private String getCPUInfo() {

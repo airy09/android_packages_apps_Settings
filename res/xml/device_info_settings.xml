@@ -141,6 +141,18 @@
                 android:title="@string/mem_info"
                 android:summary="@string/device_info_default"/>
 
+        <!-- Device swap mem info -->
+        <Preference android:key="device_swap_memory"
+                style="?android:preferenceInformationStyle"
+                android:title="@string/swap_mem_info"
+                android:summary="@string/device_info_default"/>
+
+        <!-- Device total mem info -->
+        <Preference android:key="device_total_memory"
+                style="?android:preferenceInformationStyle"
+                android:title="@string/total_mem_info"
+                android:summary="@string/device_info_default"/>
+
         <!-- Mod version -->
         <Preference android:key="mod_version"
                 style="?android:preferenceInformationStyle"
