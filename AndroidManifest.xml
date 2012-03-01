@@ -366,6 +366,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="ExtendedDeviceInfo" android:label="@string/extended_info_title"
+                >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.VOICE_LAUNCH" />
+            </intent-filter>
+        </activity>
+
         <activity android:name="SettingsLicenseActivity"
                 android:label="@string/settings_license_activity_title"
                 android:theme="@*android:style/Theme.Dialog.Alert">
@@ -571,7 +580,18 @@
             android:theme="@android:style/Theme.NoTitleBar">
         </activity>
 
-        <activity android:name="ChooseLockGeneric">
+        <activity android:name="ConfirmLockFinger"
+            android:label="@string/lockpattern_change_lock_finger_label"
+            android:configChanges="orientation|keyboardHidden"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
+        </activity>
+	
+        <activity android:name="ChooseLockGeneric"
+            android:configChanges="orientation|keyboardHidden"
+            >
             <intent-filter>
                 <action android:name="android.app.action.SET_NEW_PASSWORD" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -581,6 +601,14 @@
         <activity android:name="ChooseLockPattern"
                 android:label="@string/lockpattern_change_lock_pattern_label"
                 android:exported="false">
+        </activity>
+
+        <activity android:name="ChooseLockFinger"
+            android:configChanges="orientation|keyboardHidden"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <activity android:name="ChooseLockPassword"
@@ -890,6 +918,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <service android:name="com.android.settings.GfxEngineRelayService">
+            <intent-filter>
+                <action android:name="com.authentec.KeyguardSettings" />
+            </intent-filter>
+        </service>
 
   		<activity
       		android:name="com.android.settings.widget.FlashlightActivity"

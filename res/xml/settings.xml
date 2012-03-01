@@ -160,6 +160,16 @@
                 android:targetClass="com.android.settings.deviceinfo.Memory" />
         </com.android.settings.IconPreferenceScreen>
 
+        <com.android.settings.IconPreferenceScreen
+            settings:icon="@drawable/ic_settings_storage"
+            android:title="@string/extendedinfo_settings"
+            android:key="extendedinfo_settings">
+            <intent
+                android:action="android.intent.action.MAIN"
+                android:targetPackage="com.android.settings"
+                android:targetClass="com.android.settings.ExtendedDeviceInfo" />
+        </com.android.settings.IconPreferenceScreen>
+
         <!-- Language -->
 
         <com.android.settings.IconPreferenceScreen

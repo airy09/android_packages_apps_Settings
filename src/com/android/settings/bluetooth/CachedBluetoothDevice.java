@@ -560,9 +560,16 @@ public class CachedBluetoothDevice implements Comparable<CachedBluetoothDevice> 
                     Log.v(TAG, "opp classbits != uuid");
                     printUuids = true;
                 }
+
                 if (bluetoothClass.doesClassMatch(BluetoothClass.PROFILE_HID) !=
                     mProfiles.contains(Profile.HID)) {
                     Log.v(TAG, "HID classbits != uuid");
+                    printUuids = true;
+                }
+
+                if (bluetoothClass.doesClassMatch(BluetoothClass.PROFILE_PAN) !=
+                    mProfiles.contains(Profile.PAN)) {
+                    Log.v(TAG, "pan classbits != uuid");
                     printUuids = true;
                 }
             }
@@ -664,7 +671,7 @@ public class CachedBluetoothDevice implements Comparable<CachedBluetoothDevice> 
      * @return A one-off summary that is applicable for the current state, or 0.
      */
     private int getOneOffSummary() {
-        boolean isA2dpConnected = false, isHeadsetConnected = false, isConnecting = false;
+        boolean isA2dpConnected = false, isHeadsetConnected = false, isConnecting = false, isPANConnected = false;
         boolean isHidConnected = false;
         if (mProfiles.contains(Profile.A2DP)) {
             LocalBluetoothProfileManager profileManager = LocalBluetoothProfileManager
@@ -690,6 +697,14 @@ public class CachedBluetoothDevice implements Comparable<CachedBluetoothDevice> 
             isHidConnected = profileManager.isConnected(mDevice);
         }
 
+        if (mProfiles.contains(Profile.PAN)) {
+            LocalBluetoothProfileManager profileManager = LocalBluetoothProfileManager
+                    .getProfileManager(mLocalManager, Profile.PAN);
+            isConnecting |= profileManager.getConnectionStatus(mDevice) ==
+                    SettingsBtStatus.CONNECTION_STATUS_CONNECTING;
+            isPANConnected = profileManager.isConnected(mDevice);
+        }
+
         if (isConnecting) {
             // If any of these important profiles is connecting, prefer that
             return SettingsBtStatus.getConnectionStatusSummary(
@@ -702,6 +717,8 @@ public class CachedBluetoothDevice implements Comparable<CachedBluetoothDevice> 
             return R.string.bluetooth_summary_connected_to_headset;
         } else if (isHidConnected) {
             return R.string.bluetooth_summary_connected_to_hid;
+        } else if (isPANConnected) {
+            return R.string.bluetooth_summary_connected_to_pan;
         } else {
             return 0;
         }

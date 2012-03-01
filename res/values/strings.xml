@@ -766,6 +766,8 @@
     <string name="bluetooth_profile_headset">Phone</string>
     <!-- Bluetooth settings.  The user-visible string that is used whenever referring to the OPP profile. -->
     <string name="bluetooth_profile_opp">Transfer</string>
+    <!-- Bluetooth settings.  The user-visible string that is used whenever referring to the PAN profile. -->
+    <string name="bluetooth_profile_pan">Network</string>
     <!-- Bluetooth settings.  The user-visible string that is used whenever referring to the HID profile. -->
     <string name="bluetooth_profile_hid">HID</string>
     <string name="bluetooth_profile_network">Network</string>
@@ -777,6 +779,8 @@
     <string name="bluetooth_summary_connected_to_a2dp_headset">Connected to phone and media audio</string>
     <!-- Bluetooth settings.  The summary string when a device is connected to the HID profile. -->
     <string name="bluetooth_summary_connected_to_hid">Connected to hid device</string>
+    <!-- Bluetooth settings.  The summary string when a device is connected to the PAN profile. -->
+    <string name="bluetooth_summary_connected_to_pan">Connected to phone network</string>
 
     <!-- Bluetooth settings.  Connection options screen.  The title of the screen. -->
     <string name="bluetooth_device_advanced_title"><xliff:g id="device_name">%1$s</xliff:g> options</string>
@@ -794,7 +798,10 @@
     <string name="bluetooth_opp_profile_summary_connected">Connected to file transfer server</string>
     <!-- Bluetooth settings.  Connection options screen.  The summary for the OPP checkbox preference when OPP is not connected. -->
     <string name="bluetooth_opp_profile_summary_not_connected">Not connected to file transfer server</string>
-
+    <!-- Bluetooth settings.  Connection options screen.  The summary for the PAN checkbox preference when PAN is connected. -->
+    <string name="bluetooth_pan_profile_summary_connected">Connected to phone network</string>
+    <!-- Bluetooth settings.  Connection options screen.  The summary for the PAN checkbox preference when PAN is not connected. -->
+    <string name="bluetooth_pan_profile_summary_not_connected">Not connected to phone network</string>
     <!-- Bluetooth settings.  Connection options screen.  The summary for the A2DP checkbox preference that describes how checking it will set the A2DP profile as preferred. -->
     <string name="bluetooth_a2dp_profile_summary_use_for">Use for media audio</string>
     <!-- Bluetooth settings.  Connection options screen.  The summary for the headset checkbox preference that describes how checking it will set the headset profile as preferred. -->
@@ -805,7 +812,8 @@
     <string name="bluetooth_hid_profile_summary_connected">Connected to hid device</string>
     <!-- Bluetooth settings.  Connection options screen.  The summary for the HID checkbox preference that describes how checking it will set the HID profile as preferred. -->
     <string name="bluetooth_hid_profile_summary_use_for">Use for hid device</string>
-
+    <!-- Bluetooth settings.  Connection options screen.  The summary for the PAN checkbox preference that describes how checking it will set the OPP profile as preferred. -->
+    <string name="bluetooth_pan_profile_summary_use_for">Use for bluetooth tethering</string>
 
     <!-- Bluetooth settings.  Dock Setting Title -->
     <string name="bluetooth_dock_settings">Dock Settings</string>
@@ -1161,9 +1169,9 @@
     <!-- Sound settings screen, setting option summary text when check box is clear -->
     <string name="lock_sounds_enable_summary_off">Play sounds when locking and unlocking the screen</string>
     <!-- Sound settings screen, setting check box label -->
-    <string name="power_sounds_enable_title">Low battery sound</string>
+    <string name="power_sounds_enable_title">Enable battery alert sound</string>
     <!-- Sound settings screen, setting option summary text -->
-    <string name="power_sounds_enable_summary">Play sound with the low battery alert</string>
+    <string name="power_sounds_enable_summary">Play sound with the full or low battery alert</string>
     <!-- Sound settings screen, setting check box label -->
     <string name="haptic_feedback_enable_title">Haptic feedback</string>
     <!-- Sound settings screen, setting option summary text when check box is selected -->
@@ -1576,12 +1584,14 @@
 
     <!-- Tethering controls, item title to go into the tethering settings -->
     <string name="tether_settings_title_usb">Tethering</string>
+    <string name="tether_settings_title_bt">Tethering</string>
     <string name="tether_settings_title_wifi">Portable hotspot</string>
-    <string name="tether_settings_title_both">Tethering &amp; portable hotspot</string>
+    <string name="tether_settings_title_all">Tethering &amp; portable hotspot</string>
     <!-- Tethering controls, the item summary for the user to go into the tethering settings -->
     <string name="tether_settings_summary_usb">Share your phone\'s mobile data connection via USB</string>
+    <string name="tether_settings_summary_bt">Share your phone\'s mobile data connection via Bluetooth</string>
     <string name="tether_settings_summary_wifi">Share your phone\'s mobile connection as a portable Wi-Fi hotspot</string>
-    <string name="tether_settings_summary_both">Share your phone\'s mobile data connection via USB or as a portable Wi-Fi hotspot</string>
+    <string name="tether_settings_summary_all">Share your phone\'s mobile data connection via USB, Bluetooth or as a portable Wi-Fi hotspot</string>
 
     <!-- USB Tethering options -->
     <string name="usb_title">USB</string>
@@ -1590,12 +1600,27 @@
     <string name="usb_tethering_available_subtext">USB connected, check to tether</string>
     <!-- USB tethered subtext - shown when USB is connected and being tethered -->
     <string name="usb_tethering_active_subtext">Tethered</string>
+    <string name="title_tether_on_plugin">Tether device automatically when plugged in?</string>
+    <string name="summary_on_tether_on_plugin">Your device will automatically tether when plugged in</string>
+    <string name="summary_off_tether_on_plugin">Your device will not automatically tether when plugged in</string>
     <!-- USB storage subtext - shown when tethering is disabled because USB storage is active -->
     <string name="usb_tethering_storage_active_subtext">Can\'t tether when USB storage in use</string>
     <!-- USB unavailable subtext - shown when USB is not connected -->
     <string name="usb_tethering_unavailable_subtext">USB not connected</string>
     <!-- USB errored subtext - shown when USB is broken for some reason -->
     <string name="usb_tethering_errored_subtext">USB tethering error</string>
+
+    <!-- Bluetooth Tethering options -->
+    <string name="bt_title">Bluetooth</string>
+    <string name="bt_tethering_button_text">Bluetooth tethering</string>
+    <!-- Bluetooth available subtext - shown when Bluetooth is connected but not currently being tethered -->
+    <string name="bt_tethering_available_subtext">Remote device connected, check to tether</string>
+    <!-- Bluetooth tethered subtext - shown when Bluetooth is connected and being tethered -->
+    <string name="bt_tethering_active_subtext">Tethered</string>
+    <!-- Bluetooth unavailable subtext - shown when Bluetooth is not enabeled -->
+    <string name="bt_tethering_unavailable_subtext">Check to enable Bluetooth tethering</string>
+    <!-- Bluetooth errored subtext - shown when Bluetooth is broken for some reason -->
+    <string name="bt_tethering_errored_subtext">Bluetooth tethering Error</string>
 
     <!-- Thethering help button - calls up a web view with general tethering info -->
     <string name="tethering_help_button_text">Help</string>
@@ -3074,4 +3099,94 @@ when you are connected on trusted networks.\n\nDo you really want to enable this
     from their cell phone carrier. The use of the string is similar to the string
     "system_update_settings_list_item_title" in this project. [CHAR LIMIT=25] -->
     <string name="additional_system_update_settings_list_item_title">Additional system updates</string>
+
+    <!-- Title and Summary for PreferenceScreen to launch Enrollment -->
+    <string name ="finger_enrollment">Finger Enrollment</string>
+    <string name ="start_finger_enrollment_summary">Registers fingers for use with lock screen and other applications</string>
+
+    <!-- Summary for PreferenceScreen to launch picker for security method when there is none -->
+    <string name="lockfinger_unlock_set_unlock_launch_picker_summary">Lock screen with a pattern, finger, PIN, or password</string>
+	
+    <!-- Summary for PreferenceScreen to change security method: None/Pattern/Finger/PIN/Password -->
+    <string name="lockfinger_unlock_set_unlock_launch_picker_change_summary">Change or disable pattern, finger, PIN, or password security</string>
+
+    <!--  Title and summary for preference that guides the user through creating an unlock finger -->
+    <string name="lockfinger_unlock_set_unlock_finger_title">Finger</string>
+    <string name="lockfinger_unlock_set_unlock_finger_summary">Swipe finger to unlock screen</string>
+	
+    <!-- Title for unlock finger settings screen -->
+    <string name="lockfinger_finger_settings_title">Screen unlock fingerprint</string>
+	
+    <!-- Title for preference that sets or changes unlock finger -->
+    <string name="lockfinger_set_finger_unlock_title">Set fingerprint unlock</string>
+    <string name="lockfinger_change_finger_unlock_title">Change fingerprint unlock</string>
+
+    <!-- Title and summary for preference that toggles the finger unlock -->
+    <string name="lockfinger_toggle_unlock_finger_title">Require fingerprint</string>
+    <string name="lockfinger_toggle_unlock_finger_summary">Must use fingerprint to unlock screen</string>
+
+    <!-- Title for preference that start True Suite Administration -->
+    <string name="lockfinger_dbadmin_title">True Suite Administration</string>
+
+    <!-- Summary shown under unlock_disable_lock_title when finger is in use and can be removed -->
+    <string name="lockfinger_unlock_disable_lock_finger_summary">Remove unlock finger</string>
+
+    <!-- Title shown on security settings to allow the user to change their lockscreen finger -->
+    <string name="unlock_change_lock_finger_title">Change unlock finger</string>
+
+    <!-- Toast shown if setting finger was successful -->
+    <string name="lockpassword_finger_set_toast">Finger has been set</string>
+
+    <!-- Security & location settings screen, setting option name for finger -->
+    <string name="lockpattern_change_lock_finger_label">Change unlock finger</string>
+
+    <!-- Unlock finger settings screen, Toast shown if there is a semaphore failure. -->
+    <string name="lockfinger_semaphore_failure_toast">Semaphore failure</string>
+
+    <!-- Unlock finger settings screen, Toast shown a successful enrollment. -->
+    <string name="lockfinger_enrollment_succeeded_toast">Enrollment Succeeded.</string>
+
+    <!-- Unlock finger settings screen, Toast shown the TSM library is not available. -->
+    <string name="lockfinger_tsm_library_not_available_toast">TSM Library failed to load... cannot proceed!</string>
+	
+    <!-- Unlock finger settings screen, Toast shown when the user canneled the enrollment. -->
+    <string name="lockfinger_enrollment_canceled_toast">Enrollment Canceled.</string>
+
+    <!-- Unlock finger settings screen, Toast shown when the enrollment runs timeout. -->
+    <string name="lockfinger_enrollment_timeout_toast">Enrollment Timed Out.</string>
+	
+    <!-- Unlock finger settings screen, Toast shown an unknow error happened. -->
+    <string name="lockfinger_enrollment_unknown_error_toast">Unknown error.\nFailure to connect is likely.</string>
+
+    <!-- Unlock finger settings screen, Toast shown other errors returned by the enrollment. -->
+    <string name="lockfinger_enrollment_failure_default_toast">Enroll Not Successful. failure = %d.</string>
+
+    <!-- Unlock finger settings screen, Toast shown when the database has been full. -->
+    <string name="lockfinger_enrollment_database_full">Enroll Not Successful. Database is full.</string>
+
+    <!-- Unlock finger settings screen, change unlock finger screen instruction on top of screen after UI timeout -->
+    <string name="lockfinger_dbadmin_failure_default_toast">Database Administration operation failure: %d.</string>
+
+    <!-- Unlock finger settings screen, change unlock finger screen instruction on top of screen after UI timeout -->
+    <string name="lockfinger_ui_timeout_header">UI timeout!</string>
+	
+    <!-- Unlock finger settings screen, change unlock finger screen instruction on top of screen after too many bad swipes -->
+    <string name="lockfinger_too_many_bad_swipes_header">Too many bad swipes!</string>
+
+    <!-- Unlock finger settings screen, change unlock finger screen countdown hint on bottom of screen when the screen is locked out -->
+    <string name="lockfinger_lockout_countdown_footer">Try again in %d seconds.</string>
+
+    <!-- Extended device info --> 
+    <string name="ext_partition_info">Partition Info</string>
+    <string name="extendedinfo_settings">Extended Partition Info</string>
+    <string name="extended_info_title">Extended Partition Info</string>
+    <string name="title_system_part_info">/system partition info</string>
+    <string name="title_data_part_info">/data partition info</string>
+    <string name="title_cache_part_info">/cache partition info</string>
+    <string name="title_sdcard_fat_part_info">/sdcard partition info (fat)</string>
+    <string name="title_sdcard_ext_part_info">/sdcard partition info (ext)</string>
+
+    <string name="used_out_of">used out of</string>
+    <string name="default_unavailable">Unavailable</string>
+    <string name="default_unimplemented">Not fully implemented yet.</string>
 </resources>

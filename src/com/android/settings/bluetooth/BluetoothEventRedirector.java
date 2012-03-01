@@ -20,6 +20,7 @@ import com.android.settings.R;
 import com.android.settings.bluetooth.LocalBluetoothProfileManager.Profile;
 
 import android.bluetooth.BluetoothA2dp;
+import android.bluetooth.BluetoothPan;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothClass;
 import android.bluetooth.BluetoothDevice;
@@ -130,6 +131,16 @@ public class BluetoothEventRedirector {
                 mManager.getCachedDeviceManager().onProfileStateChanged(device,
                         Profile.HID, newState);
 
+            } else if (action.equals(BluetoothPan.INTERFACE_ADDED)) {
+                Log.i(TAG, "BluetoothPan.INTERFACE_ADDED");
+                mManager.getCachedDeviceManager().onProfileStateChanged(device,
+                       Profile.PAN, SettingsBtStatus.CONNECTION_STATUS_CONNECTED);
+
+            } else if (action.equals(BluetoothPan.INTERFACE_REMOVED)) {
+                Log.i(TAG, "BluetoothPan.INTERFACE_REMOVED");
+                mManager.getCachedDeviceManager().onProfileStateChanged(device,
+                       Profile.PAN, SettingsBtStatus.CONNECTION_STATUS_DISCONNECTED);
+
             } else if (action.equals(BluetoothDevice.ACTION_CLASS_CHANGED)) {
                 mManager.getCachedDeviceManager().onBtClassChanged(device);
 
@@ -180,6 +191,8 @@ public class BluetoothEventRedirector {
         filter.addAction(BluetoothDevice.ACTION_CLASS_CHANGED);
         filter.addAction(BluetoothDevice.ACTION_UUID);
         filter.addAction(BluetoothHid.HID_DEVICE_STATE_CHANGED_ACTION);
+        filter.addAction(BluetoothPan.INTERFACE_ADDED);
+        filter.addAction(BluetoothPan.INTERFACE_REMOVED);
 
         // Dock event broadcasts
         filter.addAction(Intent.ACTION_DOCK_EVENT);
